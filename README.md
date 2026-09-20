@@ -96,7 +96,7 @@ Lean 4 Kernel: **0 sorry, 0 custom axioms** in critical path ✅
 - **Author**: Muhammad Aidil Amry (Sang Arsitek)
 - **ORCID**: [0009-0002-9718-9710](https://orcid.org/0009-0002-9718-9710)
 - **Repository**: https://github.com/aidilamrym-ops/navier-stokes-formalization
-- **Zenodo DOI**: [Pending upload]
+- **Zenodo DOI**: 10.5281/zenodo.22855514
 
 ---
 
