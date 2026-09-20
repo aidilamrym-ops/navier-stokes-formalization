@@ -1,0 +1,31 @@
+{
+    "project": "Navier-Stokes Regularity",
+    "batch_1": {
+        "status": "UNSAT_VERIFIED",
+        "assertions": 4,
+        "monitored_variable": "dissipation_rate"
+    },
+    "batch_2": {
+        "status": "UNSAT_VERIFIED",
+        "assertions": 6,
+        "monitored_variable": "serrin_blowup_criterion",
+        "serrin_pair": [3, 9],
+        "sobolev_bound": "E^2 <= C^2 * int_diss"
+    },
+    "batch_3": {
+        "status": "UNSAT_VERIFIED",
+        "assertions": 5,
+        "monitored_variable": "enstrophy_blowup_prevention",
+        "enstrophy_bound": "Omega^2 <= C^2 * E_global^3",
+        "global_energy_bound": 100.0,
+        "blowup_threshold": 1000000.0
+    },
+    "batch_4": {
+        "status": "UNSAT_VERIFIED",
+        "assertions": 6,
+        "monitored_variable": "pressure_gradient_stability",
+        "calderon_zygmund_bound": "||grad p||^2 <= C_CZ^2 * ||u||^4",
+        "energy_bound": 100.0,
+        "blowup_threshold": 1000000.0
+    }
+}
