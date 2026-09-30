@@ -20,7 +20,7 @@
     "forced": false
   },
   "u0_matrix_file": "u0_trefoil_n64.npy",
-  "u0_build_s": 174.78142094612122,
+  "u0_build_s": 187.76901936531067,
   "topology": {
     "knot": "trefoil (2,3 torus knot)",
     "sigma": 0.24,
@@ -65,5 +65,66 @@
     "no Lean certificate is derived from these numbers",
     "unforced evolution (f=0): rhs() has no force term",
     "topological label (trefoil) is a construction input, NOT a machine-verified knot invariant of the resulting field"
-  ]
+  ],
+  "integration": {
+    "status": "completed",
+    "wall_s": 5282.6576380729675,
+    "bkm_integral_0_to_tend": 356.7588017575667,
+    "w_trigger": 109.92338999999998,
+    "trigger": null,
+    "history_head": [
+      {
+        "t": 0.0,
+        "w_inf": 17.901250150637754,
+        "energy": 0.7500000000000001
+      },
+      {
+        "t": 0.02,
+        "w_inf": 17.92268007450427,
+        "energy": 0.7499830452679422
+      },
+      {
+        "t": 0.04,
+        "w_inf": 17.937889226949757,
+        "energy": 0.7499660829991277
+      },
+      {
+        "t": 0.06,
+        "w_inf": 17.997771015365785,
+        "energy": 0.74994910448158
+      },
+      {
+        "t": 0.08,
+        "w_inf": 17.992508441362478,
+        "energy": 0.7499321010534511
+      }
+    ],
+    "history_tail": [
+      {
+        "t": 5.92,
+        "w_inf": 63.05784239879227,
+        "energy": 0.6482892507883704
+      },
+      {
+        "t": 5.94,
+        "w_inf": 62.3348780481771,
+        "energy": 0.6474553887941635
+      },
+      {
+        "t": 5.96,
+        "w_inf": 64.1500663676547,
+        "energy": 0.6466207402143664
+      },
+      {
+        "t": 5.98,
+        "w_inf": 65.33201236842305,
+        "energy": 0.6457853778005568
+      },
+      {
+        "t": 6.0,
+        "w_inf": 65.7411929104885,
+        "energy": 0.6449493776416853
+      }
+    ]
+  }
 }

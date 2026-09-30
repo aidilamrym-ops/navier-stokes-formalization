@@ -55,11 +55,14 @@ machine keeps only a plain local snapshot.
 |---|---|---|---|---|
 | Kida–Pelz vortex | `phase1_kida_n64.json`, `u0_kida_n64.npy` | 0.750 → 0.562 | 8.0 → 49.6 (peak 73.3 @ t ≈ 5.85) | **222.903** |
 | Anti-parallel tubes | `phase1_tubes_n64.json`, `u0_tubes_n64.npy` | 0.01263 → 0.01251 | 4.54 → 5.14 | **26.326** |
-| **Trefoil-knot vortex tube** — unforced `f = 0`, incompressible by spectral construction (`div = 2.8e-14`, `curl u = ω` to `2.8e-14`), E₀ = 0.75 = Kida baseline | `phase1_trefoil_n64.json`, `u0_trefoil_n64.npy`, generator `topology_hunter.py` | 0.750 → (run in flight) | t = 0: 17.9 | trajectory probe `t ∈ [0,6]` executing; trigger `‖ω‖∞ > 109.92` (1.5× Kida peak) → early stop + snapshot; final record appended to `phase1_trefoil_n64.json` |
+| **Trefoil-knot vortex tube** — unforced `f = 0`, incompressible by spectral construction (`div = 2.8e-14`, `curl u = ω` to `2.8e-14`), E₀ = 0.75 = Kida baseline | `phase1_trefoil_n64.json`, `u0_trefoil_n64.npy`, generator `topology_hunter.py` | 0.750 → 0.645 | 17.9 → 65.7 (peak 94.4 @ t ≈ 3.14; trigger 109.92 not reached) | **356.759** |
 
-All reported values are finite → **no blowup observed inside the simulated window**,
-which does *not* exclude blowup at any later time. Energy decay is consistent with
-ν > 0 dissipation in every run.
+The knotted initial data drives the hardest vorticity growth of the three: its BKM
+integral is ≈ 1.60 × the Kida run at identical E₀ (356.759 vs 222.903), yet the
+integrand stayed bounded (peak 94.4 < trigger 109.92) and the run completed in
+5,283 s. All reported values are finite → **no blowup observed inside the simulated
+window**, which does *not* exclude blowup at any later time. Energy decay is
+consistent with ν > 0 dissipation in every run.
 
 ## Repository structure
 
