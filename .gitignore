@@ -2,6 +2,7 @@
 # and untracked audit-era handover files. Kept OUT of this repository on purpose:
 # the OpenAI corpus is someone else's tree, the legacy files are superseded.
 NavierStokesAndEuler*/
+__pycache__/
 BlowupWitness.lean.txt
 MatrixFormalization.txt
 System Prompt OpenCode (Navier-Stokes AI Falsification Protocol).md
