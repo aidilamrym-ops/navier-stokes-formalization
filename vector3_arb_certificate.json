@@ -1,0 +1,50 @@
+{
+  "vector_id": "VECTOR_3_NAVIER_STOKES_SINGULARITY",
+  "certificate": "arb ball arithmetic, python-flint, prec=256",
+  "point": {
+    "i": 23,
+    "j": 5,
+    "k": 51,
+    "x_over_pi": "46/64",
+    "y_over_pi": "10/64",
+    "z_over_pi": "102/64"
+  },
+  "lambda_max_lower_bound_axis_rayleigh": {
+    "lo": 0.24382941366585134,
+    "hi": 0.24382941366585134,
+    "mid": 0.24382941366585134,
+    "radius": 0.0
+  },
+  "lambda_max_lower_bound_axis": 2,
+  "lambda_max_float64_screening": 1.71182361758868,
+  "omegaTSomega_ball": {
+    "lo": 6.487136969379118,
+    "hi": 6.487136969379118,
+    "mid": 6.487136969379118,
+    "radius": 0.0
+  },
+  "omegaTSomega_float64": 6.487136969379124,
+  "trace_S_ball_contains_zero": {
+    "lo": -4.7307491805619196e-76,
+    "hi": 4.9034725516638085e-76,
+    "mid": 8.636168555094445e-78,
+    "radius": 4.817110866112864e-76
+  },
+  "verdicts": {
+    "analytic_vs_spectral_max_dev": 1.0436096431476471e-14,
+    "analytic_vs_spectral_pass": true,
+    "S_float64_agrees_with_arb_ball_1e-12": true,
+    "trace_S_contains_zero_incompressible": true,
+    "lambda_max_gt_0_via_axis_rayleigh": true,
+    "omegaTSomega_gt_0": true,
+    "float64_q_agrees_with_arb_ball_1e-12": true
+  },
+  "scope": [
+    "Rigorous enclosure of LOCAL t=0 inequalities at one point.",
+    "lambda_max(S(p)) > 0 certified via axis Rayleigh quotient.",
+    "omega^T S omega(p) > 0 certified (positive vortex stretching).",
+    "trace(S)=0 certified consistent with incompressibility.",
+    "NOT a Navier-Stokes blowup proof; blowup remains open (Clay).",
+    "Analytic Kida-Pelz gradient, cross-checked against discrete spectral derivative (mode <= 3 => exact at n=64)."
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "vector_id": "VECTOR_3_NAVIER_STOKES_SINGULARITY",
+  "target_repository": "https://github.com/aidilamrym-ops/navier-stokes-formalization",
+  "grid_resolution": [
+    256,
+    256,
+    256
+  ],
+  "kinematic_viscosity_nu": 0.0001,
+  "bkm_threshold_infinity": 1000000000000.0,
+  "vortex_geometry": {
+    "type": "anti_parallel_trefftz_tubes",
+    "perturbation_amplitude": 0.15,
+    "circulation_gamma": 1.0,
+    "core_radius_sigma": 0.2
+  },
+  "strain_vorticity_matrix_spec": {
+    "strain_tensor_S_ij": "0.5 * (d_j u_i + d_i u_j)",
+    "vorticity_vector_omega_i": "epsilon_ijk * d_j u_k",
+    "vortex_stretching_term": "S_ij * omega_j"
+  }
+}

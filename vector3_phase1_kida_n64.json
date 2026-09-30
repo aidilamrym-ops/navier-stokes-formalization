@@ -1,0 +1,42 @@
+{
+  "vector_id": "VECTOR_3_NAVIER_STOKES_SINGULARITY",
+  "phase": 1,
+  "engine": "numpy 2.5.2 pseudo-spectral RK4, 2/3 dealias",
+  "params": {
+    "ic": "kida",
+    "n": 64,
+    "L": 6.283185307179586,
+    "nu": 0.0001,
+    "dt": 0.002,
+    "steps": 3000,
+    "t_end": 6.0
+  },
+  "u0_matrix_file": "vector3_u0_kida_n64.npy",
+  "u0_build_s": 0.08496522903442383,
+  "t0_diagnostics": {
+    "div_max_abs": 2.842170943040401e-14,
+    "S_symmetry_dev_max": 0.0,
+    "lambda_max_of_S": {
+      "max": 2.7437356272863265,
+      "min": -5.044728249174558e-17,
+      "frac_points_positive": 0.9999847412109375
+    },
+    "omegaT_S_omega": {
+      "max": 6.48713696937922,
+      "min": -6.487136969379198,
+      "frac_points_positive": 0.4997100830078125
+    },
+    "vorticity_inf": 8.000000000000037,
+    "lambda_max_argmax_index": [
+      27,
+      16,
+      27
+    ]
+  },
+  "honesty_flags": [
+    "float64 numerical evidence, NOT a rigorous enclosure",
+    "finite-time blowup of 3D Navier-Stokes remains OPEN (Clay problem)",
+    "no Lean certificate is derived from these numbers",
+    "jax unavailable: this is a numpy port of navier_stokes_hunter.py"
+  ]
+}

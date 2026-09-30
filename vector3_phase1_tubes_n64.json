@@ -1,0 +1,101 @@
+{
+  "vector_id": "VECTOR_3_NAVIER_STOKES_SINGULARITY",
+  "phase": 1,
+  "engine": "numpy 2.5.2 pseudo-spectral RK4, 2/3 dealias",
+  "params": {
+    "ic": "tubes",
+    "n": 64,
+    "L": 6.283185307179586,
+    "nu": 0.0001,
+    "dt": 0.002,
+    "steps": 3000,
+    "t_end": 6.0
+  },
+  "u0_matrix_file": "vector3_u0_tubes_n64.npy",
+  "u0_build_s": 0.3593151569366455,
+  "t0_diagnostics": {
+    "div_max_abs": 5.329070518200751e-15,
+    "S_symmetry_dev_max": 0.0,
+    "lambda_max_of_S": {
+      "max": 0.7514199177290013,
+      "min": 9.050957261978311e-17,
+      "frac_points_positive": 1.0
+    },
+    "omegaT_S_omega": {
+      "max": 0.0006648065033058881,
+      "min": -0.0006648065033058087,
+      "frac_points_positive": 0.5
+    },
+    "vorticity_inf": 4.539682376694711,
+    "lambda_max_argmax_index": [
+      39,
+      36,
+      16
+    ]
+  },
+  "honesty_flags": [
+    "float64 numerical evidence, NOT a rigorous enclosure",
+    "finite-time blowup of 3D Navier-Stokes remains OPEN (Clay problem)",
+    "no Lean certificate is derived from these numbers",
+    "jax unavailable: this is a numpy port of navier_stokes_hunter.py"
+  ],
+  "integration": {
+    "status": "completed",
+    "wall_s": 4584.290380239487,
+    "bkm_integral_0_to_tend": 26.326198123605725,
+    "history_head": [
+      {
+        "t": 0.0,
+        "w_inf": 4.539682376694712,
+        "energy": 0.012625640730124291
+      },
+      {
+        "t": 0.02,
+        "w_inf": 4.539005043078744,
+        "energy": 0.012625233502505145
+      },
+      {
+        "t": 0.04,
+        "w_inf": 4.537888585300602,
+        "energy": 0.012624826316214989
+      },
+      {
+        "t": 0.06,
+        "w_inf": 4.536333940918457,
+        "energy": 0.012624419171812368
+      },
+      {
+        "t": 0.08,
+        "w_inf": 4.534342490423489,
+        "energy": 0.012624012069855181
+      }
+    ],
+    "history_tail": [
+      {
+        "t": 5.92,
+        "w_inf": 5.154929751312981,
+        "energy": 0.012507016019738783
+      },
+      {
+        "t": 5.94,
+        "w_inf": 5.151165809299763,
+        "energy": 0.012506613021179249
+      },
+      {
+        "t": 5.96,
+        "w_inf": 5.146868663235082,
+        "energy": 0.012506209907072727
+      },
+      {
+        "t": 5.98,
+        "w_inf": 5.142039030600749,
+        "energy": 0.012505806676349589
+      },
+      {
+        "t": 6.0,
+        "w_inf": 5.136677853504006,
+        "energy": 0.012505403327944484
+      }
+    ]
+  }
+}
