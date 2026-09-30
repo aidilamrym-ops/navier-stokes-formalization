@@ -1,5 +1,5 @@
-# vector3_topology_hunter.py
-# Operation TOPOLOGICAL FRONTIER (VECTOR_3): unforced (f = 0) initial data with
+# topology_hunter.py
+# Operation TOPOLOGICAL FRONTIER (Navier-Stokes Singularity Hunter): unforced (f = 0) initial data with
 # COMPLEX VORTEX TOPOLOGY -- a trefoil-knot vortex tube on the periodic torus
 # T^3 (L = 2*pi), grid N = 64, incompressible by spectral construction.
 #
@@ -15,7 +15,7 @@
 #   4. Optional rescale so that E0 = mean|u|^2 equals the Kida baseline (0.75),
 #      making the BKM trajectory comparable to the Kida run.
 #
-# Reuses the VERIFIED pseudo-spectral machinery of vector3_phase1_u0.py
+# Reuses the VERIFIED pseudo-spectral machinery of phase1_u0.py
 # (same rhs / 2/3 dealias / RK4 / diagnostics) via import -- no forked copy.
 # Adds the protocol's TRIGGER: stop the integration and snapshot u0 if
 # ||w||_inf exceeds `w_trigger` (default 110.0 = 1.5 x Kida peak 73.28226),
@@ -38,9 +38,9 @@ import time
 
 import numpy as np
 
-from vector3_phase1_u0 import rhs, strain_vorticity_diagnostics
+from phase1_u0 import rhs, strain_vorticity_diagnostics
 
-# Kida baseline (executed 2026-09-30, vector3_phase1_kida_n64.json):
+# Kida baseline (executed 2026-09-30, phase1_kida_n64.json):
 #   E0 = 0.75, ||w||_inf peak = 73.28226 (t ~ 5.84), BKM[0,6] = 222.9030475.
 KIDA_E0 = 0.75
 KIDA_W_PEAK = 73.28226
@@ -209,7 +209,7 @@ def build_trefoil_u0(n, L=2.0 * np.pi, sigma=0.16, gamma=1.0, m=2400, a=0.8,
 
 def run_ns_triggered(u0, n, L, nu, dt, steps, sample_every=10, w_trigger=110.0,
                      snap_dir=None):
-    """Same RK4 pseudo-spectral loop as vector3_phase1_u0.run_ns, plus the
+    """Same RK4 pseudo-spectral loop as phase1_u0.run_ns, plus the
     protocol trigger: if ||w||_inf (= dBKM/dt) outruns 1.5x the Kida peak,
     STOP, snapshot the current state, and report status TRIGGERED."""
     k = np.fft.fftfreq(n, d=L / n) * 2.0 * np.pi
@@ -257,7 +257,7 @@ def run_ns_triggered(u0, n, L, nu, dt, steps, sample_every=10, w_trigger=110.0,
                               for i in range(3)], axis=-1)
             if snap_dir:
                 sp = os.path.join(snap_dir,
-                                  "vector3_u0_trefoil_triggered_t%.3f_n%d.npy"
+                                  "u0_trefoil_triggered_t%.3f_n%d.npy"
                                   % (t, n))
                 np.save(sp, u_now)
                 print("  TRIGGER -> snapshot %s" % sp, flush=True)
@@ -302,7 +302,7 @@ def main():
     L = 2.0 * np.pi
     here = os.path.dirname(os.path.abspath(__file__))
 
-    print("VECTOR_3 TOPOLOGICAL FRONTIER (trefoil u0, unforced f=0, single-thread)")
+    print("TOPOLOGICAL FRONTIER (trefoil u0, unforced f=0, single-thread)")
     print("  n=%d nu=%g dt=%g steps=%d t_end=%.4f sigma=%g a=%g"
           % (args.n, args.nu, args.dt, args.steps, args.dt * args.steps,
              args.sigma, args.a))
@@ -319,7 +319,7 @@ def main():
                "curl_vs_projected_rel_err"):
         print("    %-26s %s" % (kk, geo[kk]))
 
-    npy = os.path.join(here, "vector3_u0_trefoil_n%d.npy" % args.n)
+    npy = os.path.join(here, "u0_trefoil_n%d.npy" % args.n)
     np.save(npy, u0)
     print("  saved %s (%d bytes)" % (os.path.basename(npy), os.path.getsize(npy)))
 
@@ -329,11 +329,11 @@ def main():
         print("    %-28s %s" % (kk, vv))
 
     result = {
-        "vector_id": "VECTOR_3_NAVIER_STOKES_SINGULARITY",
+        "vector_id": "NAVIER_STOKES_SINGULARITY",
         "phase": 1,
         "operation": "TOPOLOGICAL_FRONTIER",
         "engine": "numpy %s pseudo-spectral RK4, 2/3 dealias (imported from "
-                  "vector3_phase1_u0)" % np.__version__,
+                  "phase1_u0)" % np.__version__,
         "params": {"ic": "trefoil", "n": args.n, "L": L, "nu": args.nu,
                    "dt": args.dt, "steps": args.steps,
                    "t_end": args.dt * args.steps, "sigma": args.sigma,
@@ -372,7 +372,7 @@ def main():
             "history_tail": r["history"][-5:],
         }
 
-    out = os.path.join(here, "vector3_phase1_trefoil_n%d.json" % args.n)
+    out = os.path.join(here, "phase1_trefoil_n%d.json" % args.n)
     with open(out, "w", encoding="utf-8") as fh:
         json.dump(result, fh, indent=2)
     print("  wrote %s" % os.path.basename(out))

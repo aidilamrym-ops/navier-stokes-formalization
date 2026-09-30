@@ -1,8 +1,8 @@
 {
-  "vector_id": "VECTOR_3_NAVIER_STOKES_SINGULARITY",
+  "vector_id": "NAVIER_STOKES_SINGULARITY",
   "phase": 1,
   "operation": "TOPOLOGICAL_FRONTIER",
-  "engine": "numpy 2.5.2 pseudo-spectral RK4, 2/3 dealias (imported from vector3_phase1_u0)",
+  "engine": "numpy 2.5.2 pseudo-spectral RK4, 2/3 dealias (imported from phase1_u0)",
   "params": {
     "ic": "trefoil",
     "n": 64,
@@ -19,7 +19,7 @@
     "w_trigger": 109.92338999999998,
     "forced": false
   },
-  "u0_matrix_file": "vector3_u0_trefoil_n64.npy",
+  "u0_matrix_file": "u0_trefoil_n64.npy",
   "u0_build_s": 174.78142094612122,
   "topology": {
     "knot": "trefoil (2,3 torus knot)",

@@ -1,5 +1,5 @@
 {
-  "vector_id": "VECTOR_3_NAVIER_STOKES_SINGULARITY",
+  "vector_id": "NAVIER_STOKES_SINGULARITY",
   "phase": 1,
   "engine": "numpy 2.5.2 pseudo-spectral RK4, 2/3 dealias",
   "params": {
@@ -11,7 +11,7 @@
     "steps": 3000,
     "t_end": 6.0
   },
-  "u0_matrix_file": "vector3_u0_kida_n64.npy",
+  "u0_matrix_file": "u0_kida_n64.npy",
   "u0_build_s": 0.1002345085144043,
   "t0_diagnostics": {
     "div_max_abs": 2.842170943040401e-14,

@@ -1,5 +1,5 @@
-# vector3_phase1_u0.py
-# VECTOR_3 Phase 1 (adapted): build the extreme initial condition matrix u0,
+# phase1_u0.py
+# Phase 1 (adapted): build the extreme initial condition matrix u0,
 # audit its discrete properties, run a short pseudo-spectral NS integration and
 # estimate the Beale-Kato-Majda integral.
 #
@@ -11,8 +11,8 @@
 #   a 44 h OMEGA-CORE build owns the other core).
 #
 # Outputs (written next to this script):
-#   vector3_u0_<ic>_n<N>.npy       the u0 matrix (N,N,N,3) float64
-#   vector3_phase1_<ic>_n<N>.json  metrics + honesty flags
+#   u0_<ic>_n<N>.npy       the u0 matrix (N,N,N,3) float64
+#   phase1_<ic>_n<N>.json  metrics + honesty flags
 #   stdout                         progress + summary
 import os
 
@@ -42,7 +42,7 @@ def build_kida_pelz(n, L=2.0 * np.pi):
 
 def build_antiparallel_tubes(n, L=2.0 * np.pi, sigma=0.2, gamma=1.0,
                              perturb=0.15, sep=None):
-    """Anti-parallel vortex tubes along z (VECTOR_3 spec).
+    """Anti-parallel vortex tubes along z (project spec).
 
     Vorticity = two Gaussian cores of opposite circulation, modulated along z
     by (1 + perturb*sin(z)) so the configuration is genuinely 3D.  Velocity is
@@ -250,7 +250,7 @@ def main():
     L = 2.0 * np.pi
     here = os.path.dirname(os.path.abspath(__file__))
 
-    print("VECTOR_3 PHASE 1 (numpy port, single-thread, float64)")
+    print("PHASE 1 (numpy port, single-thread, float64)")
     print("  ic=%s  n=%d  nu=%g  dt=%g  steps=%d  t_end=%.4f"
           % (args.ic, args.n, args.nu, args.dt, args.steps,
              args.dt * args.steps))
@@ -266,7 +266,7 @@ def main():
     print("  u0 built in %.3fs  shape=%s  max|u|=%.6e"
           % (build_s, u0.shape, float(np.max(np.abs(u0)))))
 
-    npy = os.path.join(here, "vector3_u0_%s_n%d.npy" % (args.ic, args.n))
+    npy = os.path.join(here, "u0_%s_n%d.npy" % (args.ic, args.n))
     np.save(npy, u0)
     print("  saved %s (%d bytes)" % (os.path.basename(npy),
                                      os.path.getsize(npy)))
@@ -277,7 +277,7 @@ def main():
         print("    %-28s %s" % (kk, vv))
 
     result = {
-        "vector_id": "VECTOR_3_NAVIER_STOKES_SINGULARITY",
+        "vector_id": "NAVIER_STOKES_SINGULARITY",
         "phase": 1,
         "engine": "numpy %s pseudo-spectral RK4, 2/3 dealias" % np.__version__,
         "params": {"ic": args.ic, "n": args.n, "L": L, "nu": args.nu,
@@ -309,7 +309,7 @@ def main():
             "history_tail": r["history"][-5:],
         }
 
-    out = os.path.join(here, "vector3_phase1_%s_n%d.json" % (args.ic, args.n))
+    out = os.path.join(here, "phase1_%s_n%d.json" % (args.ic, args.n))
     with open(out, "w", encoding="utf-8") as fh:
         json.dump(result, fh, indent=2)
     print("  wrote %s" % os.path.basename(out))

@@ -1,4 +1,4 @@
-# VECTOR_3 Protocol Alignment Report
+# Protocol Alignment Report
 
 **Date:** 2026-09-30
 **Scope:** Reconciliation of
@@ -31,12 +31,12 @@
 
 | Deliverable | Evidence | Status |
 |---|---|---|
-| `vector3_phase1_u0.py` (numpy port of the hunter; jax unavailable on this machine) | builds u0 for `kida` and `tubes`, diagnostics, pseudo-spectral RK4 NS integrator (2/3 dealias) | RUN |
-| u0 matrices `vector3_u0_{kida,tubes}_n64.npy` | 6,291,584 B each | SAVED |
+| `phase1_u0.py` (numpy port of the hunter; jax unavailable on this machine) | builds u0 for `kida` and `tubes`, diagnostics, pseudo-spectral RK4 NS integrator (2/3 dealias) | RUN |
+| u0 matrices `u0_{kida,tubes}_n64.npy` | 6,291,584 B each | SAVED |
 | t=0 diagnostics | div ≈ 2.8e-14 (kida) / 5.3e-15 (tubes); S symmetry dev = 0.0 exactly | PASS |
-| `vector3_arb_certificate.py` -> `vector3_arb_certificate.json` | python-flint ball arithmetic, prec=256 | **OVERALL PASS, exit 0** |
-| `vector3_strain_certificate.lean` | Lean 4.33.1 core-only (no Mathlib) | **compile exit 0** |
-| anti-circularity gate on the .lean | `gate.py lean vector3_strain_certificate.lean` | **PASS, exit 0** (FAIL=0) |
+| `arb_certificate.py` -> `arb_certificate.json` | python-flint ball arithmetic, prec=256 | **OVERALL PASS, exit 0** |
+| `strain_certificate.lean` | Lean 4.33.1 core-only (no Mathlib) | **compile exit 0** |
+| anti-circularity gate on the .lean | `gate.py lean strain_certificate.lean` | **PASS, exit 0** (FAIL=0) |
 | `#print axioms` on all 4 theorems | `[propext, Classical.choice, Quot.sound]` — the 3 built-in Lean axioms only, **no `sorryAx`, no custom axiom** | PASS |
 | tubes NS integration (N=64, nu=1e-4, dt=0.002, 3000 steps, t=0..6) | background PID 4916, BelowNormal | see section 1d |
 
@@ -86,7 +86,7 @@ background PID 4916, BelowNormal):
   Finite over this window ⇒ no blowup observed in this window; this does
   NOT exclude blowup later (stated in the output file itself via
   `honesty_flags`: "float64 numerical evidence, NOT a rigorous enclosure").
-* `vector3_phase1_tubes_n64.json` + `vector3_phase1_kida_n64.json` written
+* `phase1_tubes_n64.json` + `phase1_kida_n64.json` written
   and re-validated as parseable JSON.
 
 ---
@@ -135,13 +135,13 @@ reading their proofs — an audit of proof content, not a network injection.
 
 | File | Purpose |
 |---|---|
-| `vector3_phase1_u0.py` | u0 generator (kida/tubes) + diagnostics + pseudo-spectral NS integrator (numpy port of the stub hunter) |
-| `vector3_u0_kida_n64.npy`, `vector3_u0_tubes_n64.npy` | u0 matrices |
-| `vector3_phase1_kida_n64.json`, `vector3_phase1_tubes_n64.json` | metrics + honesty flags |
-| `vector3_arb_certificate.py` / `.json` | rigorous ball-arithmetic certificate (PASS) |
-| `vector3_strain_certificate.lean` | core-only Lean certificate (compile 0, gate PASS) |
-| `VECTOR_3_NAVIER_STOKES_SINGULARITY.json` | **repaired**: valid JSON again (was invalid: JSON + trailing LaTeX prose) |
-| `VECTOR_3_NAVIER_STOKES_SINGULARITY_SPECS.md` | the removed prose, preserved verbatim (no information loss) |
+| `phase1_u0.py` | u0 generator (kida/tubes) + diagnostics + pseudo-spectral NS integrator (numpy port of the stub hunter) |
+| `u0_kida_n64.npy`, `u0_tubes_n64.npy` | u0 matrices |
+| `phase1_kida_n64.json`, `phase1_tubes_n64.json` | metrics + honesty flags |
+| `arb_certificate.py` / `.json` | rigorous ball-arithmetic certificate (PASS) |
+| `strain_certificate.lean` | core-only Lean certificate (compile 0, gate PASS) |
+| `NAVIER_STOKES_SINGULARITY.json` | **repaired**: valid JSON again (was invalid: JSON + trailing LaTeX prose) |
+| `NAVIER_STOKES_SINGULARITY_SPECS.md` | the removed prose, preserved verbatim (no information loss) |
 | `PROTOCOL_ALIGNMENT_REPORT.md` | this document |
 
 ## 5. Build-safety evidence (precondition of this session)

@@ -1,7 +1,7 @@
 /-!
-# VECTOR_3 Strain Certificate (standalone Lean 4.33.1, core library only)
+# Strain Certificate (standalone Lean 4.33.1, core library only)
 
-Provenance: part of the VECTOR_3 (Navier-Stokes Singularity Hunter) audit,
+Provenance: part of the Navier-Stokes Singularity Hunter audit,
 folder `HR/navier-stokes-formalization`.
 
 ## What this file certifies
@@ -28,7 +28,7 @@ Everything is stated over `Rat` (exact rational arithmetic).  Standalone Lean
 
 * Numeric positivity bounds for the Kida-Pelz initial condition
   (`lambda_max(S) > 0`, `omega^T S omega > 0`) are certified separately by
-  ball arithmetic in `vector3_arb_certificate.json` (python-flint, directed
+  ball arithmetic in `arb_certificate.json` (python-flint, directed
   rounding).  They are NOT restated or assumed here.
 * This file contains no placeholders and adds no extra assumptions: every
   theorem is proved from the Lean core library alone.
@@ -36,7 +36,7 @@ Everything is stated over `Rat` (exact rational arithmetic).  Standalone Lean
   (it is a Millennium-open problem).
 -/
 
-namespace Vector3
+namespace StrainCert
 
 /-- Symmetrized gradient, division-free: `2 * S_ij = du_i/dx_j + du_j/dx_i`. -/
 def strain2 (g : Fin 3 → Fin 3 → Rat) (i j : Fin 3) : Rat := g i j + g j i
@@ -99,4 +99,4 @@ theorem skw2_pair_cancel (g : Fin 3 → Fin 3 → Rat) (w : Fin 3 → Rat)
     rw [← Rat.mul_assoc (w i) (skw2 g i j) (w j)]
   rw [hswap, Rat.add_neg_cancel]
 
-end Vector3
+end StrainCert

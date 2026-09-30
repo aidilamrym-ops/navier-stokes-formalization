@@ -1,4 +1,4 @@
-# vector3_arb_certificate.py
+# arb_certificate.py
 # RIGOROUS (ball-arithmetic) certificate for the Kida-Pelz initial condition.
 #
 # What is certified (machine-checked with python-flint arb, directed rounding):
@@ -129,7 +129,7 @@ def spectral_grad(u0, L):
 # ------------------------------------------------------------------- main
 def main():
     here = os.path.dirname(os.path.abspath(__file__))
-    npy = os.path.join(here, "vector3_u0_kida_n64.npy")
+    npy = os.path.join(here, "u0_kida_n64.npy")
     u0 = np.load(npy)
     n = u0.shape[0]
     L = TWO_PI
@@ -149,7 +149,7 @@ def main():
     xr = (2 * pi_, n)
     yr = (2 * pj_, n)
     zr = (2 * pk_, n)
-    print("VECTOR_3 ARB CERTIFICATE  (python-flint, prec=%d)" % ctx.prec)
+    print("ARB CERTIFICATE  (python-flint, prec=%d)" % ctx.prec)
     print("  screening argmax stretch = (%d,%d,%d)  float64 value = %.17g"
           % (pi_, pj_, pk_, stretch[pi_, pj_, pk_]))
     print("  p: x=(%d/%d)pi y=(%d/%d)pi z=(%d/%d)pi"
@@ -232,7 +232,7 @@ def main():
         print("    %-46s %s" % (k, verdicts[k]))
 
     result = {
-        "vector_id": "VECTOR_3_NAVIER_STOKES_SINGULARITY",
+        "vector_id": "NAVIER_STOKES_SINGULARITY",
         "certificate": "arb ball arithmetic, python-flint, prec=%d" % ctx.prec,
         "point": {"i": pi_, "j": pj_, "k": pk_,
                   "x_over_pi": "%d/%d" % xr, "y_over_pi": "%d/%d" % yr,
@@ -254,10 +254,10 @@ def main():
             " spectral derivative (mode <= 3 => exact at n=64).",
         ],
     }
-    out = os.path.join(here, "vector3_arb_certificate.json")
+    out = os.path.join(here, "arb_certificate.json")
     with open(out, "w", encoding="utf-8") as fh:
         json.dump(result, fh, indent=2)
-    print("  wrote vector3_arb_certificate.json")
+    print("  wrote arb_certificate.json")
 
     ok = all([verdicts["analytic_vs_spectral_pass"],
               verdicts["S_float64_agrees_with_arb_ball_1e-12"],

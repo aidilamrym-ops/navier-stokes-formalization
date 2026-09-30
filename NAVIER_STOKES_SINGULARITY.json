@@ -1,5 +1,5 @@
 {
-  "vector_id": "VECTOR_3_NAVIER_STOKES_SINGULARITY",
+  "vector_id": "NAVIER_STOKES_SINGULARITY",
   "target_repository": "https://github.com/aidilamrym-ops/navier-stokes-formalization",
   "grid_resolution": [
     256,

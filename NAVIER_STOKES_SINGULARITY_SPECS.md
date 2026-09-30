@@ -1,6 +1,6 @@
-# VECTOR_3 spec prose (extracted from the original .json)
+# Project spec prose (extracted from the original .json)
 
-The original `VECTOR_3_NAVIER_STOKES_SINGULARITY.json` contained
+The original `NAVIER_STOKES_SINGULARITY.json` contained
 JSON followed by raw LaTeX prose, which made it invalid JSON.
 The prose below is preserved verbatim here; the .json now contains
 only the JSON object.

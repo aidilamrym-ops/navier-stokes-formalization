@@ -1,5 +1,5 @@
 {
-  "vector_id": "VECTOR_3_NAVIER_STOKES_SINGULARITY",
+  "vector_id": "NAVIER_STOKES_SINGULARITY",
   "certificate": "arb ball arithmetic, python-flint, prec=256",
   "point": {
     "i": 23,
