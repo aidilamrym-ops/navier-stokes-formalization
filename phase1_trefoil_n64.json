@@ -126,5 +126,14 @@
         "energy": 0.6449493776416853
       }
     ]
+  },
+  "t0_flow_metrics": {
+    "method": "spectral curl + FFT of u0_trefoil_n64.npy, float64; energy shells m=round(|k|)",
+    "helicity_integral_u_dot_omega": -0.3692812809814304,
+    "helicity_normalized": -0.2071200583916904,
+    "enstrophy_mean": 4.238468932445578,
+    "energy_shell_peak_m": 1,
+    "energy_fraction_m_ge_24": 1.2003574229635334e-16,
+    "note": "comparison ICs measured with the same method are machine-zero (kida -1.0e-17, tubes +2.1e-21): trefoil is the only datum carrying helicity"
   }
 }

@@ -41,10 +41,16 @@ Static scan of all **2,659 `.lean` files / 643,991 lines** (note: `FORENSIC_AUDI
 - **0 `axiom`**, 0 real `constant` declarations, 0 `native_decide`, 0 `unsafe`.
 - No dimensional sleight-of-hand: `Fin 3` is spatial (4,161 uses) while `Fin 1/2/4` are
   index sets; torus/periodic scope and forcing are openly declared (862 forcing mentions).
-- Their breakdown theorems quantify **∃ f ≠ 0** (forced NS, with `ForceConditionDecay f`);
-  the repo proves `zero_force_has_global_solution` and
-  `force_nonzero_of_no_global_solution` → the **unforced** case `f = 0` is untouched and
-  stays open.
+- Their `breakdownStatement` (`R3/ProblemStatement.lean:150`) is an explicitly labelled
+  **target proposition — a `def`, not an asserted theorem** (their own docstring: *"This
+  is a target proposition, not an asserted theorem"*): `∀ ν > 0, ∃ u p f K …` with **f an
+  existential witness**, i.e. the target family is *forced*. The proved lemmas only fence
+  that target in: `zero_force_has_global_solution` exhibits the **trivial** global
+  solution u ≡ 0 for `f = 0` ("the competing-solution class is inhabited"), and
+  `force_nonzero_of_no_global_solution` shows any breakdown witness must have
+  `f(t,x) ≠ 0` somewhere. Inside their encoding, therefore, every breakdown target is
+  forced, and general-data unforced regularity (the Clay statement: arbitrary u₀ with
+  `f = 0`) lies **outside the encoding entirely** → it stays open.
 
 The external corpus itself is **not vendored** (`.gitignore` quarantine); the working
 machine keeps only a plain local snapshot.
@@ -60,9 +66,12 @@ machine keeps only a plain local snapshot.
 The knotted initial data drives the hardest vorticity growth of the three: its BKM
 integral is ≈ 1.60 × the Kida run at identical E₀ (356.759 vs 222.903), yet the
 integrand stayed bounded (peak 94.4 < trigger 109.92) and the run completed in
-5,283 s. All reported values are finite → **no blowup observed inside the simulated
-window**, which does *not* exclude blowup at any later time. Energy decay is
-consistent with ν > 0 dissipation in every run.
+5,283 s. It is also the only initial datum carrying measurable **helicity**
+(∫u·ω = −0.369, normalized −0.21) where Kida (−1.0e-17) and tubes (+2.1e-21) sit at
+machine zero — the measurable anchor for the "knotted" label, recorded in
+`phase1_trefoil_n64.json`. All reported values are finite → **no blowup observed
+inside the simulated window**, which does *not* exclude blowup at any later time.
+Energy decay is consistent with ν > 0 dissipation in every run.
 
 ## Repository structure
 
