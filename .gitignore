@@ -1,0 +1,9 @@
+# Operation TOPOLOGICAL FRONTIER — quarantine of external forensic targets
+# and untracked audit-era handover files. Kept OUT of this repository on purpose:
+# the OpenAI corpus is someone else's tree, the legacy files are superseded.
+NavierStokesAndEuler*/
+BlowupWitness.lean.txt
+MatrixFormalization.txt
+System Prompt OpenCode (Navier-Stokes AI Falsification Protocol).md
+matrix_generator.py
+navier_stokes_hunter.py
