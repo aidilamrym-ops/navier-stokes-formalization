@@ -298,6 +298,9 @@ def main():
                     help="stop if ||w||_inf exceeds this (1.5x Kida peak)")
     ap.add_argument("--no-run", action="store_true",
                     help="only build u0 + t=0 diagnostics")
+    ap.add_argument("--out-suffix", default="",
+                    help="suffix for the output JSON (e.g. _dt001) so a convergence "
+                         "study does not overwrite the main record")
     args = ap.parse_args()
     L = 2.0 * np.pi
     here = os.path.dirname(os.path.abspath(__file__))
@@ -339,7 +342,8 @@ def main():
                    "t_end": args.dt * args.steps, "sigma": args.sigma,
                    "gamma": args.gamma, "m": args.m, "a": args.a,
                    "target_energy": args.target_energy,
-                   "w_trigger": args.w_trigger, "forced": False},
+                   "w_trigger": args.w_trigger, "out_suffix": args.out_suffix,
+                   "forced": False},
         "u0_matrix_file": os.path.basename(npy),
         "u0_build_s": build_s,
         "topology": geo,
@@ -372,7 +376,7 @@ def main():
             "history_tail": r["history"][-5:],
         }
 
-    out = os.path.join(here, "phase1_trefoil_n%d.json" % args.n)
+    out = os.path.join(here, "phase1_trefoil_n%d%s.json" % (args.n, args.out_suffix))
     with open(out, "w", encoding="utf-8") as fh:
         json.dump(result, fh, indent=2)
     print("  wrote %s" % os.path.basename(out))
