@@ -73,6 +73,17 @@ machine zero — the measurable anchor for the "knotted" label, recorded in
 inside the simulated window**, which does *not* exclude blowup at any later time.
 Energy decay is consistent with ν > 0 dissipation in every run.
 
+**dt-halving check (2026-09-30).** The trefoil run was repeated at `dt = 0.001`
+(`phase1_trefoil_n64_dt001.json`, t ∈ [0, 2], 3,083 s wall, single-thread) against the
+`dt = 0.002` baseline. Relative differences: trajectories ‖ω‖∞ ≤ 2.6e-7 and E identical
+on every printed digit; BKM ≤ 3.1e-6 (at t = 1.5; ≤ 5e-7 at t = 0.5 / 1.0 / 2.0).
+So the reported metrics are timestep-insensitive down to the recording floor of the
+baseline log, with the small residual BKM wiggle consistent with the O(h²) trapezoid
+quadrature used for that integral. This is a **bound** on dt-dependence — two grids
+cannot *measure* the RK4 convergence order (that would need three), and no order is
+claimed. The u₀ rebuild was bit-identical (git clean), confirming a deterministic
+initial-condition build.
+
 ## Repository structure
 
 ```
@@ -84,6 +95,7 @@ navier-stokes-formalization/
 ├── phase1_kida_n64.json           # probe results + honesty flags
 ├── phase1_tubes_n64.json
 ├── phase1_trefoil_n64.json
+├── phase1_trefoil_n64_dt001.json  # dt-halving validation (dt 0.001, t in [0,2])
 ├── u0_kida_n64.npy                # initial-condition matrices (N,N,N,3) float64
 ├── u0_tubes_n64.npy
 ├── u0_trefoil_n64.npy
@@ -104,6 +116,7 @@ python arb_certificate.py                        # ball-arithmetic certificate (
 python phase1_u0.py --ic kida --no-run           # build u0 + t=0 diagnostics only
 python phase1_u0.py --ic kida                    # + integrate t in [0,6], BKM monitor
 python topology_hunter.py --sigma 0.24 --no-run  # trefoil u0 + t=0 diagnostics
+python topology_hunter.py --sigma 0.24 --dt 0.001 --steps 2000 --out-suffix _dt001  # dt-halving check
 python z3_tribunal/ns_batch1_energy.py           # ...then ns_batch2..4
 lean strain_certificate.lean                     # core-only compile (exit 0)
 python <anti-circularity-skill>/scripts/gate.py lean strain_certificate.lean

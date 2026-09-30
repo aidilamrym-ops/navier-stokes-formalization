@@ -1,0 +1,131 @@
+{
+  "vector_id": "NAVIER_STOKES_SINGULARITY",
+  "phase": 1,
+  "operation": "TOPOLOGICAL_FRONTIER",
+  "engine": "numpy 2.5.2 pseudo-spectral RK4, 2/3 dealias (imported from phase1_u0)",
+  "params": {
+    "ic": "trefoil",
+    "n": 64,
+    "L": 6.283185307179586,
+    "nu": 0.0001,
+    "dt": 0.001,
+    "steps": 2000,
+    "t_end": 2.0,
+    "sigma": 0.24,
+    "gamma": 1.0,
+    "m": 2400,
+    "a": 0.8,
+    "target_energy": 0.75,
+    "w_trigger": 109.92338999999998,
+    "out_suffix": "_dt001",
+    "forced": false
+  },
+  "u0_matrix_file": "u0_trefoil_n64.npy",
+  "u0_build_s": 181.87031173706055,
+  "topology": {
+    "knot": "trefoil (2,3 torus knot)",
+    "sigma": 0.24,
+    "gamma_circ_param": 1.0,
+    "samples_m": 2400,
+    "scale_a": 0.8,
+    "arc_length": 23.060999588371757,
+    "min_strand_distance": 0.9714678598643037,
+    "tube_ok": true,
+    "energy_before_scale": 0.0010719928677861237,
+    "energy_after_scale": 0.7499999999999998,
+    "scale_factor": 26.45054858503486,
+    "target_energy": 0.75,
+    "div_max_abs": 2.7977620220553945e-14,
+    "curl_vs_projected_rel_err": 2.835535431101841e-14,
+    "forced": false,
+    "domain": "periodic T^3, L=2pi, N=64"
+  },
+  "t0_diagnostics": {
+    "div_max_abs": 2.7977620220553945e-14,
+    "S_symmetry_dev_max": 0.0,
+    "lambda_max_of_S": {
+      "max": 4.098899292683644,
+      "min": 0.0026674624100987165,
+      "frac_points_positive": 1.0
+    },
+    "omegaT_S_omega": {
+      "max": 225.17462347370144,
+      "min": -225.17462347370025,
+      "frac_points_positive": 0.49994659423828125
+    },
+    "vorticity_inf": 17.901250150637754,
+    "lambda_max_argmax_index": [
+      43,
+      49,
+      35
+    ]
+  },
+  "honesty_flags": [
+    "float64 numerical evidence, NOT a rigorous enclosure",
+    "finite-time blowup of 3D Navier-Stokes remains OPEN (Clay problem)",
+    "no Lean certificate is derived from these numbers",
+    "unforced evolution (f=0): rhs() has no force term",
+    "topological label (trefoil) is a construction input, NOT a machine-verified knot invariant of the resulting field"
+  ],
+  "integration": {
+    "status": "completed",
+    "wall_s": 3082.5756521224976,
+    "bkm_integral_0_to_tend": 61.451029660943014,
+    "w_trigger": 109.92338999999998,
+    "trigger": null,
+    "history_head": [
+      {
+        "t": 0.0,
+        "w_inf": 17.901250150637754,
+        "energy": 0.7500000000000001
+      },
+      {
+        "t": 0.01,
+        "w_inf": 17.910183585023397,
+        "energy": 0.7499915230302268
+      },
+      {
+        "t": 0.02,
+        "w_inf": 17.922680075253513,
+        "energy": 0.7499830452679577
+      },
+      {
+        "t": 0.03,
+        "w_inf": 17.961825561041664,
+        "energy": 0.7499745656210588
+      },
+      {
+        "t": 0.04,
+        "w_inf": 17.93788922362149,
+        "energy": 0.7499660829991371
+      }
+    ],
+    "history_tail": [
+      {
+        "t": 1.96,
+        "w_inf": 51.8431743239991,
+        "energy": 0.7471578158565698
+      },
+      {
+        "t": 1.97,
+        "w_inf": 53.02693177427338,
+        "energy": 0.747128443867926
+      },
+      {
+        "t": 1.98,
+        "w_inf": 53.77127970417494,
+        "energy": 0.747098745616902
+      },
+      {
+        "t": 1.99,
+        "w_inf": 54.08677301816471,
+        "energy": 0.747068714944146
+      },
+      {
+        "t": 2.0,
+        "w_inf": 53.960749523148856,
+        "energy": 0.7470383456199956
+      }
+    ]
+  }
+}
