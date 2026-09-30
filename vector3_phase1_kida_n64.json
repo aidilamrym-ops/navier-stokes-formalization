@@ -12,7 +12,7 @@
     "t_end": 6.0
   },
   "u0_matrix_file": "vector3_u0_kida_n64.npy",
-  "u0_build_s": 0.08496522903442383,
+  "u0_build_s": 0.1002345085144043,
   "t0_diagnostics": {
     "div_max_abs": 2.842170943040401e-14,
     "S_symmetry_dev_max": 0.0,
@@ -38,5 +38,64 @@
     "finite-time blowup of 3D Navier-Stokes remains OPEN (Clay problem)",
     "no Lean certificate is derived from these numbers",
     "jax unavailable: this is a numpy port of navier_stokes_hunter.py"
-  ]
+  ],
+  "integration": {
+    "status": "completed",
+    "wall_s": 4408.186780929565,
+    "bkm_integral_0_to_tend": 222.90304747997675,
+    "history_head": [
+      {
+        "t": 0.0,
+        "w_inf": 8.000000000000039,
+        "energy": 0.7499999999999999
+      },
+      {
+        "t": 0.02,
+        "w_inf": 7.9881754484274055,
+        "energy": 0.749966996007662
+      },
+      {
+        "t": 0.04,
+        "w_inf": 7.953210374619035,
+        "energy": 0.7499339651371968
+      },
+      {
+        "t": 0.06,
+        "w_inf": 7.895564865159833,
+        "energy": 0.7499008789506115
+      },
+      {
+        "t": 0.08,
+        "w_inf": 7.815987536904279,
+        "energy": 0.7498677087876108
+      }
+    ],
+    "history_tail": [
+      {
+        "t": 5.92,
+        "w_inf": 68.18073783503024,
+        "energy": 0.5667320618328855
+      },
+      {
+        "t": 5.94,
+        "w_inf": 64.7361806714943,
+        "energy": 0.5656588581651303
+      },
+      {
+        "t": 5.96,
+        "w_inf": 60.43675814499159,
+        "energy": 0.5645906489973181
+      },
+      {
+        "t": 5.98,
+        "w_inf": 55.350874611644294,
+        "energy": 0.5635275566998381
+      },
+      {
+        "t": 6.0,
+        "w_inf": 49.58427654393722,
+        "energy": 0.5624695143280868
+      }
+    ]
+  }
 }
