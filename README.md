@@ -78,11 +78,21 @@ Energy decay is consistent with ν > 0 dissipation in every run.
 `dt = 0.002` baseline. Relative differences: trajectories ‖ω‖∞ ≤ 2.6e-7 and E identical
 on every printed digit; BKM ≤ 3.1e-6 (at t = 1.5; ≤ 5e-7 at t = 0.5 / 1.0 / 2.0).
 So the reported metrics are timestep-insensitive down to the recording floor of the
-baseline log, with the small residual BKM wiggle consistent with the O(h²) trapezoid
-quadrature used for that integral. This is a **bound** on dt-dependence — two grids
+baseline log, with the small residual BKM wiggle consistent with the O(h^2) trapezoid
+quadrature used for that integral. This is a **bound** on dt-dependence -- two grids
 cannot *measure* the RK4 convergence order (that would need three), and no order is
-claimed. The u₀ rebuild was bit-identical (git clean), confirming a deterministic
+claimed. The u0 rebuild was bit-identical (git clean), confirming a deterministic
 initial-condition build.
+
+**N=128 trefoil (2026-10-02).** Same IC hash family as N=64 at `--n 128`,
+`sigma = 0.24`, `dt = 0.002`: the run stopped at **t = 2.296** on the BKM trigger
+(`||w||_inf` = 110.13 > 109.92), BKM[0, 2.296] = 90.350, E 0.750 -> 0.746,
+wall 11,965 s, stderr empty. The N=64 run of the same geometry peaked at 94.4
+near t ~ 3.14 and never triggered -- the finer grid concentrates vorticity
+measurably sooner and harder. Checkpoint/resume (`--ckpt-every` / `--resume`)
+was added to `topology_hunter.py` for the multi-hour N=128 job; details in
+`N128_TREFOIL_RESULTS.md`. Still evidence only: the trigger is a protocol stop,
+not a singularity, and no blowup is proven.
 
 ## Repository structure
 
@@ -96,6 +106,9 @@ navier-stokes-formalization/
 ├── phase1_tubes_n64.json
 ├── phase1_trefoil_n64.json
 ├── phase1_trefoil_n64_dt001.json  # dt-halving validation (dt 0.001, t in [0,2])
+phase1_trefoil_n128.json      # N=128 probe: TRIGGERED at t=2.296 (see N128_TREFOIL_RESULTS.md)
+N128_TREFOIL_RESULTS.md       # honest note of the N=128 run
+u0_trefoil_triggered_t2.296_n128.npy  # triggered-state snapshot (N=128)
 ├── u0_kida_n64.npy                # initial-condition matrices (N,N,N,3) float64
 ├── u0_tubes_n64.npy
 ├── u0_trefoil_n64.npy

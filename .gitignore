@@ -8,3 +8,4 @@ MatrixFormalization.txt
 System Prompt OpenCode (Navier-Stokes AI Falsification Protocol).md
 matrix_generator.py
 navier_stokes_hunter.py
+*.ckpt.npz

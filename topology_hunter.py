@@ -208,10 +208,14 @@ def build_trefoil_u0(n, L=2.0 * np.pi, sigma=0.16, gamma=1.0, m=2400, a=0.8,
 # ----------------------------------------------- integrator with BKM trigger
 
 def run_ns_triggered(u0, n, L, nu, dt, steps, sample_every=10, w_trigger=110.0,
-                     snap_dir=None):
+                     snap_dir=None, ckpt_every=0, ckpt_path=None, resume=False):
     """Same RK4 pseudo-spectral loop as phase1_u0.run_ns, plus the
     protocol trigger: if ||w||_inf (= dBKM/dt) outruns 1.5x the Kida peak,
-    STOP, snapshot the current state, and report status TRIGGERED."""
+    STOP, snapshot the current state, and report status TRIGGERED.
+
+    Mid-run checkpoint: every `ckpt_every` steps, write {u_hat, t, bkm,
+    hist, step} to `ckpt_path` (.npz). `--resume` reloads it and
+    continues. Required for N=128-class runs (~13h)."""
     k = np.fft.fftfreq(n, d=L / n) * 2.0 * np.pi
     KX, KY, KZ = np.meshgrid(k, k, k, indexing="ij")
     k2 = KX * KX + KY * KY + KZ * KZ
@@ -229,6 +233,18 @@ def run_ns_triggered(u0, n, L, nu, dt, steps, sample_every=10, w_trigger=110.0,
     w_inf_prev = None
     status = "completed"
     trigger_info = None
+    step0 = 0
+
+    if resume and ckpt_path and os.path.exists(ckpt_path):
+        with np.load(ckpt_path, allow_pickle=False) as ck:
+            u_hat = ck["u_hat"].copy()
+            t = float(ck["t"])
+            bkm = float(ck["bkm"])
+            hist = json.loads(str(ck["hist_json"]))
+            step0 = int(ck["step"]) + 1
+        w_inf_prev = None  # BKM trapezoid resumes at next sample boundary
+        print("  RESUME from %s: step=%d t=%.6f bkm=%.6e hist=%d"
+              % (ckpt_path, step0, t, bkm, len(hist)), flush=True)
 
     def omega_inf():
         wx = np.fft.ifftn(1j * (KY * u_hat[..., 2] - KZ * u_hat[..., 1])).real
@@ -237,7 +253,7 @@ def run_ns_triggered(u0, n, L, nu, dt, steps, sample_every=10, w_trigger=110.0,
         return float(np.max(np.sqrt(wx * wx + wy * wy + wz * wz)))
 
     t0 = time.time()
-    for step in range(steps + 1):
+    for step in range(step0, steps + 1):
         w_inf = omega_inf()
         if w_inf_prev is not None:
             bkm += 0.5 * (w_inf + w_inf_prev) * dt
@@ -274,6 +290,14 @@ def run_ns_triggered(u0, n, L, nu, dt, steps, sample_every=10, w_trigger=110.0,
         k4 = f(u_hat + dt * k3)
         u_hat = u_hat + (dt / 6.0) * (k1 + 2 * k2v + 2 * k3 + k4)
         t += dt
+        if (ckpt_every > 0 and ckpt_path and step > step0
+                and (step + 1) % ckpt_every == 0):
+            tmp = ckpt_path + ".tmp.npz"
+            np.savez(tmp, u_hat=u_hat, t=t, bkm=bkm, step=step,
+                     hist_json=np.asarray(json.dumps(hist)))
+            os.replace(tmp, ckpt_path)
+            print("  CKPT step=%d t=%.4f -> %s"
+                  % (step, t, os.path.basename(ckpt_path)), flush=True)
     return {"bkm_integral": bkm, "history": hist, "status": status,
             "wall_s": time.time() - t0, "trigger": trigger_info,
             "w_trigger": w_trigger}
@@ -301,6 +325,10 @@ def main():
     ap.add_argument("--out-suffix", default="",
                     help="suffix for the output JSON (e.g. _dt001) so a convergence "
                          "study does not overwrite the main record")
+    ap.add_argument("--ckpt-every", type=int, default=500,
+                    help="checkpoint interval in steps (0 disables)")
+    ap.add_argument("--resume", action="store_true",
+                    help="resume from the checkpoint file if it exists")
     args = ap.parse_args()
     L = 2.0 * np.pi
     here = os.path.dirname(os.path.abspath(__file__))
@@ -359,8 +387,12 @@ def main():
     }
 
     if not args.no_run:
+        ckpt_path = os.path.join(
+            here, "u0_trefoil_n%d%s.ckpt.npz" % (args.n, args.out_suffix))
         r = run_ns_triggered(u0, args.n, L, args.nu, args.dt, args.steps,
-                             w_trigger=args.w_trigger, snap_dir=here)
+                             w_trigger=args.w_trigger, snap_dir=here,
+                             ckpt_every=args.ckpt_every,
+                             ckpt_path=ckpt_path, resume=args.resume)
         print("  integration: status=%s wall=%.1fs" % (r["status"], r["wall_s"]))
         print("  BKM integral over [0, %.4f]: %.6e (trigger at %.6e)"
               % (args.dt * args.steps, r["bkm_integral"], r["w_trigger"]))
